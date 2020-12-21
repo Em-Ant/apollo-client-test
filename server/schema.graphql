@@ -1,0 +1,47 @@
+type Query {
+  contracts: Contracts
+}
+
+type Contracts {
+  nav: Contract
+  public: Contract
+}
+
+type Contract {
+  _id: String
+  name: String
+  prognosis(input: Params): Prognosis
+}
+
+type Prognosis {
+  payoutPlan: [PayoutItem]
+  simulationStatus: Status
+}
+
+type PayoutItem {
+  age: Int!
+  amount: Float!
+}
+
+type Status {
+  status: STATUS
+  message: String
+}
+
+enum STATUS {
+  OK
+  BUSINESS_ERROR
+  SIMULATION_ERROR
+}
+
+input Params {
+  startAge: Int
+}
+
+type Echo {
+  text: String
+}
+
+type Mutation {
+  test(q: String): Echo
+}
