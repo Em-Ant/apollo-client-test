@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
-const path = require('path');
 const { join } = require('path');
+const favicon = require('serve-favicon');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
 
@@ -16,7 +16,10 @@ const app = express();
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, '../build')));
+try {
+  app.use(favicon(join(__dirname, '../build', 'favicon.ico')));
+  app.use(express.static(join(__dirname, '../build')));
+} catch (e) {}
 
 app.use(
   '/api/graphql',

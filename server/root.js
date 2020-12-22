@@ -1,35 +1,33 @@
-const getPayoutPlan = (startAge = 67, length = 2, amount = 300000) =>
-  [...Array(length === 'lifelong' ? 100 - startAge : length).keys()].map(
-    (k) => ({
-      age: k + startAge,
-      amount,
-    }),
-  );
+const getResult = (value = 67, length = 2, r = 300000) =>
+  [...Array(length).keys()].map((k) => ({
+    x: k + value,
+    y: Math.floor(Math.random() * r),
+  }));
 
-const getContract = ({ name, id, planLength, amount }) => {
+const makeItem = ({ name, id, planLength, r }) => {
   return {
-    custId: id,
+    idField: id,
     name,
-    prognosis: ({ input: { startAge } }) => ({
-      payoutPlan: getPayoutPlan(startAge, planLength, amount),
-      simulationStatus: {
+    computed: ({ input: { value } }) => ({
+      result: getResult(value, planLength, r),
+      calculationStatus: {
         message: null,
-        status: Math.random() >= 0.5 ? 'OK' : 'SIMULATION_ERROR',
+        status: Math.random() >= 0.5 ? 'OK' : 'ERROR',
       },
     }),
   };
 };
 
 const root = {
-  contracts: () => ({
-    nav: getContract({
-      name: 'nav',
-      id: 'nav',
+  items: () => ({
+    typeA: makeItem({
+      name: 'type_A',
+      id: 'abc.123',
     }),
-    public: getContract({
+    typeB: makeItem({
       name: 'public',
-      id: 'off.1',
-      amount: 450000,
+      id: 'xyz.999',
+      r: 200000,
     }),
   }),
   test: (params) => {

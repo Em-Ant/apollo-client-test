@@ -1,26 +1,26 @@
 type Query {
-  contracts: Contracts
+  items: Items
 }
 
-type Contracts {
-  nav: Contract
-  public: Contract
+type Items {
+  typeA: Item
+  typeB: Item
 }
 
-type Contract {
-  custId: String
+type Item {
+  idField: String
   name: String
-  prognosis(input: Params): Prognosis
+  computed(input: Params): Computed
 }
 
-type Prognosis {
-  payoutPlan: [PayoutItem]
-  simulationStatus: Status
+type Computed {
+  result: [ResultItem]
+  calculationStatus: Status
 }
 
-type PayoutItem {
-  age: Int!
-  amount: Float!
+type ResultItem {
+  x: Int!
+  y: Float!
 }
 
 type Status {
@@ -30,12 +30,12 @@ type Status {
 
 enum STATUS {
   OK
-  BUSINESS_ERROR
-  SIMULATION_ERROR
+  ERROR
+  NOT_IMPLEMENTED
 }
 
 input Params {
-  startAge: Int
+  value: Int
 }
 
 type Echo {

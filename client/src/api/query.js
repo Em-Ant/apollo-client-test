@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client';
 
-const PROGNOSIS = gql`
-  fragment Prognosis on Contract {
-    prognosis(input: $input) {
-      payoutPlan {
-        age
-        amount
+const COMPUTED = gql`
+  fragment Computed on Item {
+    computed(input: $input) {
+      result {
+        x
+        y
       }
-      simulationStatus {
+      calculationStatus {
         status
         message
       }
@@ -17,18 +17,18 @@ const PROGNOSIS = gql`
 
 export const QUERY = gql`
   query($input: Params) {
-    contracts {
-      nav {
+    items {
+      typeA {
         name
-        custId
-        ...Prognosis
+        idField
+        ...Computed
       }
-      public {
+      typeB {
         name
-        custId
-        ...Prognosis
+        idField
+        ...Computed
       }
     }
   }
-  ${PROGNOSIS}
+  ${COMPUTED}
 `;

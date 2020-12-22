@@ -4,8 +4,8 @@ const client = new ApolloClient({
   uri: 'api/graphql',
   cache: new InMemoryCache({
     typePolicies: {
-      Contract: {
-        keyFields: ['custId'],
+      Item: {
+        keyFields: ['idField'],
       },
     },
   }),
