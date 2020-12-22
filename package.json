@@ -6,7 +6,7 @@
     "build": "snowpack build",
     "test": "echo no tests",
     "format": "prettier --write \"**/*.{js,jsx}\"",
-    "lint": "prettier --check \"**/*.{js,jsx}\""
+    "lint": "eslint . \"**/*.{js,jsx}\""
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",
@@ -21,6 +21,9 @@
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.4",
     "@snowpack/plugin-react-refresh": "^2.3.7",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-react": "^7.21.5",
     "nodemon": "^2.0.6",
     "prettier": "^2.0.5",
     "snowpack": "^2.18.5"

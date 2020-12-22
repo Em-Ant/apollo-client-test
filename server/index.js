@@ -19,7 +19,9 @@ app.use(cors());
 try {
   app.use(favicon(join(__dirname, '../build', 'favicon.ico')));
   app.use(express.static(join(__dirname, '../build')));
-} catch (e) {}
+} catch (e) {
+  /* do nothing */
+}
 
 app.use(
   '/api/graphql',
