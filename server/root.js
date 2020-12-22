@@ -8,13 +8,13 @@ const getPayoutPlan = (startAge = 67, length = 2, amount = 300000) =>
 
 const getContract = ({ name, id, planLength, amount }) => {
   return {
-    _id: id,
+    custId: id,
     name,
     prognosis: ({ input: { startAge } }) => ({
       payoutPlan: getPayoutPlan(startAge, planLength, amount),
       simulationStatus: {
         message: null,
-        status: 'OK',
+        status: Math.random() >= 0.5 ? 'OK' : 'SIMULATION_ERROR',
       },
     }),
   };

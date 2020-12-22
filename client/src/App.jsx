@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useSmartQuery } from './api/hooks';
 
-import { QUERY } from './query';
+import { QUERY } from './api/query';
 
 import './App.css';
 
 function App() {
   const [startAge, setStartAge] = useState(67);
-  const { loading, error, data } = useQuery(QUERY, {
-    variables: {
-      input: {
-        startAge,
+  const { loading, error, data } = useSmartQuery(
+    QUERY,
+    {
+      variables: {
+        input: {
+          startAge,
+        },
       },
     },
-  });
+    (data) =>
+      data?.contracts?.nav?.prognosis?.simulationStatus?.status !== 'OK',
+  );
 
   let content = data && JSON.stringify(data, null, '  ');
-  if (loading) content = 'Loading...';
+  if (!data && loading) content = 'Loading...';
   if (error) content = `Error! ${error.message}`;
   return (
     <div className="App">

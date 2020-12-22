@@ -1,8 +1,7 @@
-/** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-    public: '/',
-    src: '/_dist_',
+    'client/public': '/',
+    'client/src': '/_dist_',
   },
   plugins: ['@snowpack/plugin-react-refresh', '@snowpack/plugin-dotenv'],
   install: [
@@ -18,7 +17,7 @@ module.exports = {
     /* ... */
   },
   proxy: {
-    '/api': 'http://localhost:4000',
+    '/api': 'http://localhost:4000/api',
   },
   alias: {
     /* ... */

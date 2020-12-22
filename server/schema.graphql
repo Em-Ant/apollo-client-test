@@ -8,7 +8,7 @@ type Contracts {
 }
 
 type Contract {
-  _id: String
+  custId: String
   name: String
   prognosis(input: Params): Prognosis
 }

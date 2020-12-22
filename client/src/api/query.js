@@ -20,11 +20,12 @@ export const QUERY = gql`
     contracts {
       nav {
         name
-        _id
+        custId
         ...Prognosis
       }
       public {
-        _id
+        name
+        custId
         ...Prognosis
       }
     }

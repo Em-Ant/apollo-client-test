@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "start": "snowpack dev",
+    "dev:client": "snowpack dev",
+    "dev:server": "nodemon --delay 1 --watch ./server ./server/index.js",
+    "start": "node ./server/index.js",
     "build": "snowpack build",
     "test": "echo no tests",
     "format": "prettier --write \"**/*.{js,jsx}\"",
@@ -8,6 +10,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.11.0",
     "graphql": "^15.4.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
@@ -15,6 +20,7 @@
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.0.4",
     "@snowpack/plugin-react-refresh": "^2.3.7",
+    "nodemon": "^2.0.6",
     "prettier": "^2.0.5",
     "snowpack": "^2.18.5"
   }

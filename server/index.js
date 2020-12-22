@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
+const path = require('path');
 const { join } = require('path');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
@@ -15,8 +16,10 @@ const app = express();
 
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, '../build')));
+
 app.use(
-  '/graphql',
+  '/api/graphql',
   (_, __, next) => setTimeout(() => next(), 500), // 500ms delay
   graphqlHTTP({
     schema: schema,
