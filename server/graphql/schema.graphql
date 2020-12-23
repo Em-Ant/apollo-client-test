@@ -43,5 +43,5 @@ type Echo {
 }
 
 type Mutation {
-  test(q: String): Echo
+  testMutation(q: String): Echo
 }
