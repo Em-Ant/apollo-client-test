@@ -23,5 +23,5 @@ try {
 app.use('/api/graphql', delay(250), graphQL);
 
 app.listen(4000, () =>
-  console.log('Running a GraphQL API server at localhost:4000/graphql'),
+  console.log('Running a GraphQL API server at localhost:4000/api/graphql'),
 );
