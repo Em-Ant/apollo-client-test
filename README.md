@@ -30,4 +30,4 @@
 
   Runs the server. Remember to build the client first.
 
-**Not Poduction ready - it will work only in a modern browser:** Add a build bundler plugin like "@snowpack/plugin-webpack" to your `snowpack.config.js` config file, for better performance.
+**Not Poduction ready - will work only in a modern browser:** Add a build bundler plugin like "@snowpack/plugin-webpack" to your `snowpack.config.js` config file, for better performance.

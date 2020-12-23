@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
 
-import { QUERY } from './api/query';
+import { useSmartCacheQuery } from './api/hooks';
 
 import './App.css';
 
 function App() {
   const [value, setValue] = useState(10);
-  const { loading, error, data } = useQuery(QUERY, {
-    variables: {
-      input: {
-        value,
-      },
-    },
-  });
+  const { loading, error, data } = useSmartCacheQuery(value);
 
   let content = data && JSON.stringify(data, null, '  ');
   if (loading) content = 'Loading...';
