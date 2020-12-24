@@ -24,6 +24,13 @@
   margin-left: 8px;
 }
 
+.App .content {
+  display: flex;
+}
+
+.App .content pre:nth-child(n + 2){
+  margin-left: 8px;
+}
 
 .App pre {
   background: #FFF3;

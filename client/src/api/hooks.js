@@ -6,11 +6,13 @@ import { QUERY } from './queries';
 const hasErrors = (data) =>
   !!data &&
   Object.values(data?.items ?? {}).some((item) => {
-    return item?.computed?.calculationStatus?.status === 'ERROR';
+    return (
+      item === null || item?.computed?.calculationStatus?.status === 'ERROR'
+    );
   });
 
 const useSmartCacheQuery = (value) => {
-  const [state, set] = useState({ loading: false, error: false, data: null });
+  const [state, set] = useState({ loading: false, data: null });
   useEffect(async () => {
     const data = client.readQuery({
       query: QUERY,
@@ -31,12 +33,13 @@ const useSmartCacheQuery = (value) => {
           },
         },
         fetchPolicy: 'cache-only',
+        errorPolicy: 'all',
       });
       return set(fromCache);
     }
 
     // cached data has errors. refetch...
-    set({ ...state, data: null, loading: true });
+    set({ ...state, data: null, loading: true, errors: null, error: null });
     const fetched = await client.query({
       query: QUERY,
       variables: {
@@ -45,6 +48,7 @@ const useSmartCacheQuery = (value) => {
         },
       },
       fetchPolicy: 'network-only',
+      errorPolicy: 'all',
     });
     set(fetched);
   }, [value]);
