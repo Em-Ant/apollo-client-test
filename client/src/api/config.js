@@ -3,10 +3,14 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 const client = new ApolloClient({
   uri: 'api/graphql',
   cache: new InMemoryCache({
+    possibleTypes: {
+      BaseItem: ['ItemA', 'ItemB'],
+    },
     typePolicies: {
       Items: {
         keyFields: false,
         merge: (existing, incoming) => {
+          if (!incoming) return existing;
           // avoid null refernces in case of graphql error and incomplete response
           const out = { ...existing, ...incoming };
           Object.keys(out).forEach((k) => {
@@ -16,7 +20,7 @@ const client = new ApolloClient({
           return out;
         },
       },
-      Item: {
+      BaseItem: {
         keyFields: ['idField'],
       },
       Computed: {

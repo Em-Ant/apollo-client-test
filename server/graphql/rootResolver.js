@@ -9,10 +9,11 @@ const getRandomString = (n = 3) =>
     .map(() => String.fromCharCode(65 + Math.round(25 * Math.random())))
     .join('');
 
-const makeItem = ({ name, id, resultLength, r }) => {
+const makeItem = async ({ name, id, resultLength, r }) => {
+  await new Promise((resolve) => setImmediate(resolve));
+
   if (Math.random() > 0.7)
     throw new Error(`error in subsystem ${getRandomString()}`);
-
   return {
     idField: id,
     name,
@@ -27,18 +28,34 @@ const makeItem = ({ name, id, resultLength, r }) => {
 };
 
 const root = {
-  items: () => ({
-    typeA: () =>
+  items: async () => ({
+    typeA: async () => [
       makeItem({
         name: 'type_A',
         id: 'abc.123',
       }),
-    typeB: () =>
+    ],
+    typeB: async () => [
       makeItem({
-        name: 'public',
+        name: 'type_B',
         id: 'xyz.999',
         r: 200000,
       }),
+    ],
+    byId: async ({ id }) => {
+      const isA = Math.random() > 0.5;
+      const isB = !isA;
+      const __typename = isA ? 'ItemA' : 'ItemB';
+      return {
+        __typename,
+        ...makeItem({
+          name: isA ? 'type_A' : 'type_B',
+          id,
+        }),
+        ...(isA && { extra: 'extra data' }),
+        ...(isB && { moreInfo: 'more info' }),
+      };
+    },
   }),
   testMutation: (params) => {
     console.log(params);

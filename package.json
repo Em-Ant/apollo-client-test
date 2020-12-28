@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev:client": "snowpack dev",
-    "dev:server": "nodemon --delay 1 --watch ./server ./server/index.js",
+    "dev:server": "nodemon --delay 1 --ext js,graphql --watch ./server ./server/index.js",
     "start": "node ./server/index.js",
     "build": "snowpack build",
     "test": "echo no tests",

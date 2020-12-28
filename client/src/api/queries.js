@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const COMPUTED = gql`
-  fragment Computed on Item {
+  fragment Computed on BaseItem {
     computed(input: $input) {
       result {
         x

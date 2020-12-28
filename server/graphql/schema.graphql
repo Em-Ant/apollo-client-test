@@ -3,15 +3,32 @@ type Query {
 }
 
 type Items {
-  typeA: Item
-  typeB: Item
+  typeA: [ItemA]!
+  typeB: [ItemB]!
+  byId(id: String): ItemUnion
 }
 
-type Item {
+interface BaseItem {
   idField: String
   name: String
   computed(input: Params): Computed
 }
+
+type ItemA implements BaseItem {
+  idField: String
+  name: String
+  computed(input: Params): Computed
+  extra: String
+}
+
+type ItemB implements BaseItem {
+  idField: String
+  name: String
+  computed(input: Params): Computed
+  moreInfo: String
+}
+
+union ItemUnion = ItemA | ItemB
 
 type Computed {
   result: [ResultItem]
